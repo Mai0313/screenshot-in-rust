@@ -8,6 +8,7 @@ use md5;
 use image::{ImageBuffer, Rgba, ColorType};
 use image::codecs::png::PngEncoder;
 use image::ImageEncoder;
+use chrono::Local;
 
 fn main() {
     loop {
@@ -44,7 +45,8 @@ fn main() {
 
         PngEncoder::new(&mut file).write_image(&buffer, capture_width, capture_height, ColorType::Rgba8).expect("Couldn't encode PNG.");
 
-        println!("Screenshot saved to {} at {:?}", output_path_folder, SystemTime::now());
+        let now = Local::now();
+        println!("Screenshot saved to {} at {}", output_path_folder, now.format("%Y-%m-%d %H:%M:%S"));
         thread::sleep(Duration::from_secs(1));
     }
 }
