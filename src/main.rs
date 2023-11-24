@@ -15,7 +15,6 @@ fn main() {
         let output_path_folder = "outputs";
         let capture_percent = 1.0;
 
-        // 創建輸出資料夾
         fs::create_dir_all(output_path_folder).expect("Couldn't create output folder.");
 
         let display = Display::primary().expect("Couldn't find primary display.");
