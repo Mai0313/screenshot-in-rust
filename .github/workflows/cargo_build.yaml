@@ -1,26 +1,19 @@
 # .github/workflows/build.yml
-name: Build
+name: Build Rust
 
-on:
-  push:
-    branches: [master]
+on: [push]
 
 jobs:
-  build:
-    name: Build
+  build_and_test:
+    name: Rust project
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Compile
-        id: compile
-        uses: rust-build/rust-build.action@v1.4.4
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
         with:
-          RUSTTARGET: x86_64-pc-windows-gnu
-          UPLOAD_MODE: none
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
         with:
-          name: Binary
-          path: |
-            ${{ steps.compile.outputs.BUILT_ARCHIVE }}
-            ${{ steps.compile.outputs.BUILT_CHECKSUM }}
+          command: build
+          args: --release --all-features
+
