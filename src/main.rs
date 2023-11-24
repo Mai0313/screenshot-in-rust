@@ -19,7 +19,7 @@ fn main() {
 
         let display = Display::primary().expect("Couldn't find primary display.");
         let mut capturer = Capturer::new(display).expect("Couldn't begin capture.");
-        
+
         let (width, height) = (capturer.width(), capturer.height());
         let capture_width = (width as f32 * capture_percent) as u32;
         let capture_height = (height as f32 * capture_percent) as u32;
@@ -41,7 +41,7 @@ fn main() {
         let mut file = File::create(&path).expect("Couldn't create file.");
 
         let buffer = ImageBuffer::<Rgba<u8>, Vec<u8>>::from_raw(capture_width, capture_height, frame.to_vec()).expect("Couldn't create image buffer.");
-        
+
         PngEncoder::new(&mut file).write_image(&buffer, capture_width, capture_height, ColorType::Rgba8).expect("Couldn't encode PNG.");
 
         println!("Screenshot saved to {} at {:?}", output_path_folder, SystemTime::now());
